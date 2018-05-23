@@ -1,9 +1,12 @@
-Compile:
+### Hello example
+
+Run with:
+
 ```sh
-GOOS=js GOARCH=wasm <PATH_TO_SDK>/bin/go build -o test.wasm
+docker container run -dP nlepage/golang_wasm:hello
+
+# Find out which host port is used
+docker container ps
 ```
 
-Serve:
-```sh
-docker container run -v $(pwd):/usr/share/nginx/html:ro -v $(pwd)/mime.types:/etc/nginx/mime.types:ro -d -P nginx:1-alpine
-```
+Visit http://localhost:32XXX/wasm_exec.html, open browser console and click Run button
