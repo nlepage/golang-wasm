@@ -34,7 +34,6 @@ license that can be found in the LICENSE file.
 		addEventListener('hashchange', loadWasm);
 
 		async function run() {
-			console.clear();
 			await go.run(inst);
 			inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
 		}
