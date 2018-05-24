@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Go wasm</title>
+</head>
+
+<body>
+	<script src="wasm_exec.js"></script>
+	<script>
+		if (!WebAssembly.instantiateStreaming) { // polyfill
+			WebAssembly.instantiateStreaming = async (resp, importObject) => {
+				const source = await (await resp).arrayBuffer();
+				return await WebAssembly.instantiate(source, importObject);
+			};
+		}
+
+		const loadWasm = async () => {
+			const go = new Go();
+			const { module, instance } = await WebAssembly.instantiateStreaming(fetch("go-call.wasm"), go.importObject);
+			go.run(instance);
+		}
+		loadWasm();
+
+		let printMessage;
+		function setPrintMessage(val) {
+			printMessage = val;
+			document.querySelector("#printMessageButton").disabled = false;
+		}
+
+		function callPrintMessage() {
+			printMessage(document.querySelector("#messageInput").value);
+		}
+	</script>
+
+	<ul>
+		<li><a href="/#hello">Hello</a></li>
+		<li><a href="/#js-call">JS call</a></li>
+		<li><a href="go-call.html">Go call</a></li>
+	</ul>
+
+	<input id="messageInput" type="text" value="Hello Go wasm !">
+	<button onClick="callPrintMessage();" id="printMessageButton" disabled>Print message</button>
+</body>
+
+</html>
