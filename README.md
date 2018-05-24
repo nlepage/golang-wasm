@@ -10,4 +10,5 @@ docker container ps
 ```
 
 Visit http://localhost:32XXX/, open browser console and click Run button.
-Choose another example and run again.
+
+Try other examples using the links.
