@@ -6,5 +6,5 @@ import (
 
 func main() {
 	alert := js.Global.Get("alert")
-	alert.Invoke("Hello Go wasm !")
+	alert.Invoke("Hello Wasm !")
 }

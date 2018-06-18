@@ -1,9 +1,4 @@
 <!doctype html>
-<!--
-Copyright 2018 The Go Authors. All rights reserved.
-Use of this source code is governed by a BSD-style
-license that can be found in the LICENSE file.
--->
 <html>
 
 <head>
@@ -12,40 +7,11 @@ license that can be found in the LICENSE file.
 </head>
 
 <body>
-	<script src="wasm_exec.js"></script>
-	<script>
-		if (!WebAssembly.instantiateStreaming) { // polyfill
-			WebAssembly.instantiateStreaming = async (resp, importObject) => {
-				const source = await (await resp).arrayBuffer();
-				return await WebAssembly.instantiate(source, importObject);
-			};
-		}
-
-		const go = new Go();
-		let mod, inst;
-		const loadWasm = () => {
-			WebAssembly.instantiateStreaming(fetch((location.hash.substr(1) || "hello") + ".wasm"), go.importObject).then((result) => {
-				mod = result.module;
-				inst = result.instance;
-				document.getElementById("runButton").disabled = false;
-			});
-		}
-		loadWasm();
-		addEventListener('hashchange', loadWasm);
-
-		async function run() {
-			await go.run(inst);
-			inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
-		}
-	</script>
-
 	<ul>
-		<li><a href="#hello">Hello</a></li>
-		<li><a href="#js-call">JS call</a></li>
-		<li><a href="go-call.html">Go call</a></li>
+		<li><a href="/hello/wasm_exec.html">Hello</a></li>
+		<li><a href="/js-call/wasm_exec.html">JS call</a></li>
+		<li><a href="/go-call/wasm_exec.html">Go call</a></li>
 	</ul>
-
-	<button onClick="run();" id="runButton" disabled>Run</button>
 </body>
 
 </html>

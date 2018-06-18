@@ -1,7 +1,7 @@
 FROM nlepage/golang_wasm AS builder
 
-COPY ./ src/hello/
-RUN go build -o test.wasm hello
+COPY ./ src/js-call/
+RUN go build -o test.wasm js-call
 
 FROM nlepage/golang_wasm:nginx
 

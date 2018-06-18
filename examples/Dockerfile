@@ -1,17 +1,10 @@
-FROM nlepage/golang_wasm AS builder
+FROM nlepage/golang_wasm:hello AS hello
+FROM nlepage/golang_wasm:js-call AS js-call
+FROM nlepage/golang_wasm:go-call AS go-call
 
-COPY hello/ src/hello/
-COPY js-call/ src/js-call/
-COPY go-call/ src/go-call/
-RUN go install hello \
-  && mv bin/js_wasm/hello hello.wasm \
-  && go install js-call \
-  && mv bin/js_wasm/js-call js-call.wasm \
-  && go install go-call \
-  && mv bin/js_wasm/go-call go-call.wasm
+FROM nlepage/golang_wasm:nginx
 
-FROM nginx:1-alpine
-
-COPY mime.types /etc/nginx/
-COPY --from=builder /usr/local/go/misc/wasm/wasm_exec.js /go/*.wasm /usr/share/nginx/html/
-COPY *.html /usr/share/nginx/html/
+COPY --from=hello /usr/share/nginx/html/ /usr/share/nginx/html/hello/
+COPY --from=js-call /usr/share/nginx/html/ /usr/share/nginx/html/js-call/
+COPY --from=go-call /usr/share/nginx/html/ /usr/share/nginx/html/go-call/
+COPY index.html /usr/share/nginx/html/
