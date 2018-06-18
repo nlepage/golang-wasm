@@ -2,7 +2,7 @@ FROM golang:1.10 AS builder
 
 WORKDIR /tmp
 ENV USER=go
-RUN git clone https://github.com/neelance/go && cd go && git checkout wasm-wip
+RUN git clone https://github.com/golang/go && cd go
 RUN cd go/src && ./all.bash
 RUN mv go/VERSION.cache go/VERSION && rm -rf go/.git* go/pkg/obj
 
