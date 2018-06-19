@@ -9,6 +9,4 @@ docker container run -dP nlepage/golang_wasm:examples
 docker container ps
 ```
 
-Visit http://localhost:32XXX/, open browser console and click Run button.
-
-Try other examples using the links.
+Visit http://localhost:32XXX/, and follow the links.
