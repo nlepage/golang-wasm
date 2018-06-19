@@ -45,7 +45,7 @@ license that can be found in the LICENSE file.
 		  })
 		  const run = go.run(inst) // Start the wasm binary
 		  await printMessageReceived // Wait for the callback reception
-		  printMessage('Hello Wasm !') // Invoke the callback
+		  printMessage('Hello Wasm!') // Invoke the callback
 		  await run // Wait for the binary to terminate
 		  inst = await WebAssembly.instantiate(mod, go.importObject) // reset instance
 		}
