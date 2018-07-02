@@ -12,13 +12,13 @@ var (
 
 func main() {
 	callback := js.NewCallback(printMessage)
-	defer callback.Close() // This is a good practice
-	setPrintMessage := js.Global.Get("setPrintMessage")
+	defer callback.Release() // This is a good practice
+	setPrintMessage := js.Global().Get("setPrintMessage")
 	setPrintMessage.Invoke(callback)
 
 	beforeUnloadCb := js.NewEventCallback(0, beforeUnload)
-	defer beforeUnloadCb.Close()
-	addEventListener := js.Global.Get("addEventListener")
+	defer beforeUnloadCb.Release()
+	addEventListener := js.Global().Get("addEventListener")
 	addEventListener.Invoke("beforeunload", beforeUnloadCb)
 
 	<-beforeUnloadCh
