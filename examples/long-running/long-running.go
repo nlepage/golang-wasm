@@ -12,7 +12,7 @@ var (
 
 func main() {
 	callback := js.NewCallback(printMessage)
-	defer callback.Release() // This is a good practice
+	defer callback.Release()
 	setPrintMessage := js.Global().Get("setPrintMessage")
 	setPrintMessage.Invoke(callback)
 

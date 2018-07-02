@@ -9,7 +9,7 @@ var done = make(chan struct{})
 
 func main() {
 	callback := js.NewCallback(printMessage)
-	defer callback.Release() // This is a good practice
+	defer callback.Release() // To defer the callback releasing is a good practice
 	setPrintMessage := js.Global().Get("setPrintMessage")
 	setPrintMessage.Invoke(callback)
 	<-done
