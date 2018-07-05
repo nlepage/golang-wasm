@@ -9,11 +9,11 @@ import (
 // BindGlobals binds JS identifiers from the global scope into a structure
 // This is equivalent to Bind(v, js.Global())
 func BindGlobals(v interface{}) error {
-	return Bind(v, js.Global())
+	return Bind(v, js.Global)
 }
 
 // Bind binds JS identifiers from the given JS parent reference
-func Bind(v interface{}, parent js.Value) error {
+func Bind(v interface{}, parent func() js.Value) error {
 	if err := checkType(v); err != nil {
 		return err
 	}

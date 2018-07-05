@@ -11,11 +11,11 @@ func isSetter(t string, ft reflect.Type) bool {
 
 type setter struct {
 	name   string
-	parent js.Value
+	parent func() js.Value
 }
 
 func (s setter) set(v interface{}) {
-	s.parent.Set(s.name, v)
+	s.parent().Set(s.name, v)
 }
 
 type floatSetter struct {
@@ -50,7 +50,7 @@ func (s stringSetter) set(f string) {
 	s.setter.set(f)
 }
 
-func bindSetter(name string, t reflect.Type, parent js.Value) reflect.Value {
+func bindSetter(name string, t reflect.Type, parent func() js.Value) reflect.Value {
 	s := setter{name, parent}
 
 	switch t.Kind() {

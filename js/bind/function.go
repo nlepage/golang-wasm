@@ -16,7 +16,7 @@ var mapReturns = map[reflect.Kind]func(js.Value) []reflect.Value{
 }
 
 type function struct {
-	fn        func(...interface{}) js.Value
+	fn        func() func(...interface{}) js.Value
 	mapReturn func(js.Value) []reflect.Value
 }
 
@@ -24,13 +24,13 @@ func isFunction(t string) bool {
 	return strings.HasSuffix(t, functionSuffix)
 }
 
-func bindFunction(tag string, t reflect.Type, parent js.Value) reflect.Value {
+func bindFunction(tag string, t reflect.Type, parent func() js.Value) reflect.Value {
 	return reflect.MakeFunc(t, newFunction(tag, t, parent).call)
 }
 
-func newFunction(tag string, t reflect.Type, parent js.Value) function {
+func newFunction(tag string, t reflect.Type, parent func() js.Value) function {
 	name := strings.TrimSuffix(tag, functionSuffix)
-	fn := parent.Get(name).Invoke
+	fn := func() func(...interface{}) js.Value { return parent().Get(name).Invoke }
 
 	//FIXME check func return type
 
@@ -57,7 +57,7 @@ func (f function) call(argValues []reflect.Value) []reflect.Value {
 		args[i] = argValue.Interface()
 	}
 
-	return f.mapReturn(f.fn(args...))
+	return f.mapReturn(f.fn()(args...))
 }
 
 func returnVoid(_ js.Value) []reflect.Value {
