@@ -24,8 +24,8 @@ func bindGetter(name string, t reflect.Type, parent func() js.Value) reflect.Val
 	case reflect.Struct:
 		ft := reflect.FuncOf([]reflect.Type{}, []reflect.Type{t}, false)
 		return reflect.MakeFunc(ft, func(args []reflect.Value) []reflect.Value {
-			//TODO use sync.Once and keep the value ?
 			v := reflect.New(t)
+			//TODO store parent reference ?
 			Bind(v.Interface(), func() js.Value { return parent().Get(name) })
 			return []reflect.Value{reflect.ValueOf(v.Elem().Interface())}
 		})
