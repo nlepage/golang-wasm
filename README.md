@@ -28,3 +28,7 @@ docker container ls
 ```
 
 Visit http://localhost:32XXX/, and follow the links.
+
+### References
+
+[Go 1.11: WebAssembly for the gophers](https://medium.zenika.com/go-1-11-webassembly-for-the-gophers-ae4bb8b1ee03)
