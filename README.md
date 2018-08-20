@@ -32,3 +32,5 @@ Visit http://localhost:32XXX/, and follow the links.
 ### References
 
 [Go 1.11: WebAssembly for the gophers](https://medium.zenika.com/go-1-11-webassembly-for-the-gophers-ae4bb8b1ee03)
+
+[Go WebAssembly: Binding structures to JS references](https://medium.zenika.com/go-webassembly-binding-structures-to-js-references-4eddd6fd4d23)
