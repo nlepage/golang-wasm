@@ -1,4 +1,4 @@
-FROM nlepage/golang_wasm AS builder
+FROM golang:1.11 AS builder
 
 FROM nginx:1-alpine
 

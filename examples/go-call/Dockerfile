@@ -1,7 +1,7 @@
-FROM nlepage/golang_wasm AS builder
+FROM golang:1.11 AS builder
 
 COPY ./ src/go-call/
-RUN go build -o test.wasm go-call
+RUN GOOS=js GOARCH=wasm go build -o test.wasm go-call
 
 FROM nlepage/golang_wasm:nginx
 

@@ -1,13 +1,13 @@
 ### Usage
 
-Use the docker images `nlepage/golang_wasm` and `nlepage/golang_wasm:nginx` to build and run a Go program as WebAssembly binary.
+Use the docker image `nlepage/golang_wasm:nginx` to run a Go program as WebAssembly binary in browser.
 
 Example `Dockerfile`:
 ```
-FROM nlepage/golang_wasm AS builder
+FROM golang:1.11 AS builder
 
 COPY ./ src/app/
-RUN go build -o test.wasm app
+RUN GOOS=js GOARCH=wasm go build -o test.wasm app
 
 FROM nlepage/golang_wasm:nginx
 

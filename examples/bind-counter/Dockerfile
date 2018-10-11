@@ -1,8 +1,8 @@
-FROM nlepage/golang_wasm AS builder
+FROM golang:1.11 AS builder
 
 COPY ./ src/bind-counter/
-RUN go get github.com/nlepage/golang-wasm/js/bind
-RUN go build -o test.wasm bind-counter
+RUN GOOS=js GOARCH=wasm go get github.com/nlepage/golang-wasm/js/bind
+RUN GOOS=js GOARCH=wasm go build -o test.wasm bind-counter
 
 FROM nlepage/golang_wasm:nginx
 

@@ -1,7 +1,7 @@
-FROM nlepage/golang_wasm AS builder
+FROM golang:1.11 AS builder
 
 COPY ./ src/long-running/
-RUN go build -o test.wasm long-running
+RUN GOOS=js GOARCH=wasm go build -o test.wasm long-running
 
 FROM nlepage/golang_wasm:nginx
 
