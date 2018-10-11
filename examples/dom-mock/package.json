@@ -1,0 +1,9 @@
+{
+  "name": "golang-wasm-dom-mock",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsdom": "^12.2.0"
+  }
+}
