@@ -29,22 +29,15 @@ license that can be found in the LICENSE file.
 			document.getElementById("runButton").disabled = false;
 		});
 
-		let printMessage // Our reference to the Go callback
-		let printMessageReceived // Our promise
-		let resolvePrintMessageReceived // Our promise resolver
-		function setPrintMessage(callback) {
-		  printMessage = callback
-		  resolvePrintMessageReceived()
-		}
-
+		var setPrintMessage
 		async function run() {
 		  console.clear()
 		  // Create the Promise and store its resolve function
-		  printMessageReceived = new Promise(resolve => {
-		    resolvePrintMessageReceived = resolve
+		  const printMessagePromise = new Promise(resolve => {
+		    setPrintMessage = resolve
 		  })
 		  const run = go.run(inst) // Start the wasm binary
-		  await printMessageReceived // Wait for the callback reception
+			const printMessage = await printMessagePromise // Wait for the callback reception
 		  printMessage('Hello Wasm!') // Invoke the callback
 		  await run // Wait for the binary to terminate
 		  inst = await WebAssembly.instantiate(mod, go.importObject) // reset instance
