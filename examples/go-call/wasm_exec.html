@@ -31,16 +31,16 @@ license that can be found in the LICENSE file.
 
 		var setPrintMessage
 		async function run() {
-		  console.clear()
-		  // Create the Promise and store its resolve function
-		  const printMessagePromise = new Promise(resolve => {
-		    setPrintMessage = resolve
-		  })
-		  const run = go.run(inst) // Start the wasm binary
+			console.clear()
+			// Create the Promise and store its resolve function
+			const printMessagePromise = new Promise(resolve => {
+				setPrintMessage = resolve
+			})
+			const run = go.run(inst) // Start the wasm binary
 			const printMessage = await printMessagePromise // Wait for the callback reception
-		  printMessage(document.querySelector('#messageInput').value) // Invoke the callback
-		  await run // Wait for the binary to terminate
-		  inst = await WebAssembly.instantiate(mod, go.importObject) // reset instance
+			printMessage(document.querySelector('#messageInput').value) // Invoke the callback
+			await run // Wait for the binary to terminate
+			inst = await WebAssembly.instantiate(mod, go.importObject) // reset instance
 		}
 	</script>
 

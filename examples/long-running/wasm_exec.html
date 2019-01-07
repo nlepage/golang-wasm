@@ -22,15 +22,15 @@ license that can be found in the LICENSE file.
 		}
 
 		(async function() {
-		  const go = new Go()
-		  const { instance } = await WebAssembly.instantiateStreaming(fetch("test.wasm"), go.importObject)
-		  go.run(instance)
+			const go = new Go()
+			const { instance } = await WebAssembly.instantiateStreaming(fetch("test.wasm"), go.importObject)
+			go.run(instance)
 		})()
 
 		let printMessage
 		function setPrintMessage(callback) {
-		  printMessage = callback
-		  document.querySelector('#printMessageButton').disabled = false
+			printMessage = callback
+			document.querySelector('#printMessageButton').disabled = false
 		}
 	</script>
 
