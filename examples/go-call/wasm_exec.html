@@ -38,12 +38,13 @@ license that can be found in the LICENSE file.
 		  })
 		  const run = go.run(inst) // Start the wasm binary
 			const printMessage = await printMessagePromise // Wait for the callback reception
-		  printMessage('Hello Wasm!') // Invoke the callback
+		  printMessage(document.querySelector('#messageInput').value) // Invoke the callback
 		  await run // Wait for the binary to terminate
 		  inst = await WebAssembly.instantiate(mod, go.importObject) // reset instance
 		}
 	</script>
 
+	<input id="messageInput" type="text" value="Hello Wasm!">
 	<button onClick="run();" id="runButton" disabled>Run</button>
 </body>
 

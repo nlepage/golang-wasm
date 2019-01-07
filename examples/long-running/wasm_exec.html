@@ -21,11 +21,10 @@ license that can be found in the LICENSE file.
 			};
 		}
 
-		let run
 		(async function() {
 		  const go = new Go()
 		  const { instance } = await WebAssembly.instantiateStreaming(fetch("test.wasm"), go.importObject)
-		  run = go.run(instance)
+		  go.run(instance)
 		})()
 
 		let printMessage
